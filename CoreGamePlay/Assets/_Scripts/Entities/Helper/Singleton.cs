@@ -47,7 +47,10 @@ namespace _Scripts.Entities.UI.Helper
             {
                 Destroy(gameObject);
             }
-            else { DontDestroyOnLoad(gameObject); }
+            else
+            {
+                DontDestroyOnLoad(gameObject);
+            }
         }
 
         private void OnApplicationQuit()

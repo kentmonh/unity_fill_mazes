@@ -6,22 +6,22 @@ using _Scripts.Entities.UI.Helper;
 
 namespace _Scripts.Entities.UI.Buttons
 {
-    public class SelectStageButtonsController : Singleton<SelectStageButtonsController>
+    public class SelectStageButtonsController : Singleton<SelectStageButtonsController>, ISelectButtonsController
     {
         [SerializeField] private GameObject _buttonSelectStage;
-
         private MenuButtonController[] ButtonSelectStages { get; set; }
 
         private List<GameObject> instantiateButtons = new List<GameObject>();
+
         public int CurrentPage { get; set; }
+        public int TotalLevels { get; set; }
+        public int PageLevels { get; set; }
 
-        private int totalStages = 25;
-        private int pageStages = 6;
-
-        void Start()
+        public SelectStageButtonsController()
         {
             CurrentPage = 0;
-            Refresh();
+            TotalLevels = 25;
+            PageLevels = 6;
         }
 
         public void Refresh()
@@ -33,10 +33,10 @@ namespace _Scripts.Entities.UI.Buttons
             }
             instantiateButtons.Clear();
 
-            int remainStages = totalStages - CurrentPage * pageStages;
-            if (remainStages >= pageStages)
+            int remainStages = TotalLevels - CurrentPage * PageLevels;
+            if (remainStages >= PageLevels)
             {
-                remainStages = pageStages;
+                remainStages = PageLevels;
             }
 
             int y = 720;
@@ -55,7 +55,7 @@ namespace _Scripts.Entities.UI.Buttons
 
             for (int i = 0; i < ButtonSelectStages.Length; i++)
             {
-                int level = CurrentPage * pageStages + i + 1;
+                int level = CurrentPage * PageLevels + i + 1;
                 ButtonSelectStages[i].Setup(level);
             }
         }

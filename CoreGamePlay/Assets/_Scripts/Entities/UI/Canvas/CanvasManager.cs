@@ -9,7 +9,7 @@ namespace _Scripts.Entities.UI.Canvas
     public class CanvasManager : Singleton<CanvasManager>
     {
         private List<CanvasController> CanvasControllerList { get; set; }
-        private CanvasController lastActiveCanvas;
+        public CanvasController lastActiveCanvas { get; set; }
 
         protected override void Awake()
         {

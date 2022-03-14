@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using _Scripts.Entities.UI.Canvas;
+using _Scripts.Entities.Helper;
 
 namespace _Scripts.Entities.Menu
 {
@@ -13,8 +14,8 @@ namespace _Scripts.Entities.Menu
         private CanvasManager canvasManager;
         private Button menuButton;
 
-        [SerializeField] private Text _textStageLevel;
-        private int btnStageLevel = 0;
+        [SerializeField] private Text _textLevel;
+        private int btnLevel = 0;
 
         private void Start()
         {
@@ -28,6 +29,8 @@ namespace _Scripts.Entities.Menu
             switch (_menuButtonType)
             {
                 case MenuButtonType.StageLevel:
+                    PlayerPrefsManager.CurrentStage = btnLevel;
+                    TextStageLevelController.TextStageLevel.text = "Stage " + btnLevel.ToString();
                     canvasManager.SwitchCanvas(CanvasType.MenuLevelSelect);
                     break;
                 case MenuButtonType.GameLevel:
@@ -38,15 +41,17 @@ namespace _Scripts.Entities.Menu
             }
         }
 
-        public void Setup(int stageLevel)
+        public void Setup(int level)
         {
             switch (_menuButtonType)
             {
                 case MenuButtonType.StageLevel:
-                    btnStageLevel = stageLevel;
-                    _textStageLevel.text = "Stage " + btnStageLevel.ToString();
+                    btnLevel = level;
+                    _textLevel.text = "Stage " + btnLevel.ToString();
                     break;
                 case MenuButtonType.GameLevel:
+                    btnLevel = level;
+                    _textLevel.text = btnLevel.ToString();
                     break;
                 default:
                     break;
