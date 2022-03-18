@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using _Scripts.Entities.UI.Canvas;
 using _Scripts.Entities.Helper;
+using _Scripts.Entities.GamePlay;
 
 namespace _Scripts.Entities.Menu
 {
@@ -13,13 +15,13 @@ namespace _Scripts.Entities.Menu
         [SerializeField] private MenuButtonType _menuButtonType;
         private CanvasManager canvasManager;
         private Button menuButton;
-
-        [SerializeField] private Text _textLevel;
+        private Text textLevel;
         private int btnLevel = 0;
 
-        private void Start()
+        void Awake()
         {
             menuButton = GetComponent<Button>();
+            textLevel = GetComponentInChildren<Text>();
             menuButton.onClick.AddListener(OnMenuButtonClicked);
             canvasManager = CanvasManager.GetInstance();
         }
@@ -34,6 +36,8 @@ namespace _Scripts.Entities.Menu
                     canvasManager.SwitchCanvas(CanvasType.MenuLevelSelect);
                     break;
                 case MenuButtonType.GameLevel:
+                    PlayerPrefsManager.CurrentLevel = btnLevel;
+                    TextGameLevelController.TextGameLevel.text = PlayerPrefsManager.CurrentStage.ToString() + "-" + btnLevel.ToString();
                     canvasManager.SwitchCanvas(CanvasType.GamePlay);
                     break;
                 default:
@@ -47,11 +51,11 @@ namespace _Scripts.Entities.Menu
             {
                 case MenuButtonType.StageLevel:
                     btnLevel = level;
-                    _textLevel.text = "Stage " + btnLevel.ToString();
+                    textLevel.text = "Stage " + btnLevel.ToString();
                     break;
                 case MenuButtonType.GameLevel:
                     btnLevel = level;
-                    _textLevel.text = btnLevel.ToString();
+                    textLevel.text = btnLevel.ToString();
                     break;
                 default:
                     break;

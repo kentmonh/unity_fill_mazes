@@ -9,6 +9,7 @@ namespace _Scripts.Entities.Helper
         #region Player Pref Keys
         private const string K_currentStage = "CurrentStage";
         private const string K_currentLevel = "CurrentLevel";
+        private const string K_money = "Money";
         #endregion
 
         private static void SetIntPref(string name, int value)
@@ -26,6 +27,18 @@ namespace _Scripts.Entities.Helper
         {
             get => GetIntPref(K_currentStage);
             set => SetIntPref(K_currentStage, value);
+        }
+
+        public static int CurrentLevel
+        {
+            get => GetIntPref(K_currentLevel);
+            set => SetIntPref(K_currentLevel, value);
+        }
+
+        public static int Money
+        {
+            get => GetIntPref(K_money);
+            set => SetIntPref(K_money, value);
         }
     }
 }

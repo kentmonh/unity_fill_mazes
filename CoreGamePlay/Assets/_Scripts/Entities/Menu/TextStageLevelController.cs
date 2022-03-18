@@ -12,7 +12,7 @@ namespace _Scripts.Entities.Menu
 
         void Awake()
         {
-            TextStageLevel = GetComponentInChildren<Text>();
+            TextStageLevel = GetComponent<Text>();
         }
     }
 }

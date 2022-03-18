@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using _Scripts.Entities.Menu;
 using _Scripts.Entities.UI.Helper;
+using UnityEngine.UI;
 
 namespace _Scripts.Entities.UI.Buttons
 {
