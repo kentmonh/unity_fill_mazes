@@ -23,5 +23,10 @@ namespace _Scripts.Entities.GamePlay.Lines
             InitLineRenderer.SetPosition(0, new Vector3(Game.Path.Peek().Position.x, Game.Path.Peek().Position.y, 0) - SetupBlocks.Center - new Vector3(0, 0.25f, 0));
             InitLineRenderer.SetPosition(1, new Vector3(Game.Path.Peek().Position.x, Game.Path.Peek().Position.y, 0) - SetupBlocks.Center + new Vector3(0, 0.25f, 0));
         }
+
+        public static void NewGame()
+        {
+            InitLineRenderer.positionCount = 0;
+        }
     }
 }

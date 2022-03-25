@@ -4,6 +4,7 @@ using UnityEngine;
 using _Scripts.Entities.GamePlay.Blocks;
 using _Scripts.Utility;
 using _Scripts.Entities.GamePlay.Lines;
+using _Scripts.Entities.GamePlay.LevelFinish;
 
 namespace _Scripts.Entities.GamePlay.GamePlaySystem
 {
@@ -13,21 +14,36 @@ namespace _Scripts.Entities.GamePlay.GamePlaySystem
         public static Stack<Block> Path { get; set; }
         void Start()
         {
+            Path = new Stack<Block>();
+            RestartGame();
+        }
+
+        public static void RestartGame()
+        {
             // Setup the init gameplay
             Block firstblock = SetupBlocks.Blocks[0];
-            if (firstblock.Sprite == null)
-            {
-                firstblock.Sprite = GetComponentInChildren<SpriteRenderer>();
-            }
             SetCurrent(firstblock);
+            if (Path.Count < 1)
+            {
+                // Set UnsolvedBlocks and Path
+                Path.Push(firstblock);
+                UnsolvedBlocks = SetupBlocks.Blocks.Length - 1;
 
-            // Set UnsolvedBlocks and Path
-            Path = new Stack<Block>();
-            Path.Push(firstblock);
-            UnsolvedBlocks = SetupBlocks.Blocks.Length - 1;
-
-            // Set LinePath
-            PathLineController.LinePath.Add(firstblock.Position);
+                // Set LinePath
+                PathLineController.LinePath.Clear();
+                PathLineController.LinePath.Add(firstblock.Position);
+            }
+            else
+            {
+                // Restart game
+                while (Path.Peek() != firstblock)
+                {
+                    Block popPoint = Path.Pop();
+                    popPoint.Occupied = false;
+                    Game.UnsolvedBlocks += 1;
+                    PathLineController.LinePath.RemoveAt(PathLineController.LinePath.Count - 1);
+                }
+            }
         }
 
         public static void SetCurrent(Block block)
@@ -63,7 +79,7 @@ namespace _Scripts.Entities.GamePlay.GamePlaySystem
 
         public static void FinishGame()
         {
-            Debug.Log("Finished Game");
+            LevelFinishUI.NextButton.gameObject.SetActive(true);
         }
     }
 }

@@ -18,6 +18,7 @@ namespace _Scripts.Entities.GamePlay.Lines
             LineRenderer.endColor = GlobalVariables.orange;
             LineRenderer.startWidth = 0.5f;
             LineRenderer.endWidth = 0.5f;
+            LineRenderer.positionCount = 0;
         }
 
         void Update()

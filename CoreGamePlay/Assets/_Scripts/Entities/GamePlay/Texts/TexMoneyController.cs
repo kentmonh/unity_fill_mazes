@@ -8,13 +8,18 @@ namespace _Scripts.Entities.GamePlay.Texts
 {
     public class TexMoneyController : MonoBehaviour
     {
-        private Text MoneyText { get; set; }
+        private static Text MoneyText { get; set; }
 
         void Awake()
         {
             MoneyText = GetComponent<Text>();
-            MoneyText.text = PlayerPrefsManager.Money.ToString();
+            RefreshMoneyText();
         }
+
+        public static void RefreshMoneyText()
+        {
+            MoneyText.text = PlayerPrefsManager.Money.ToString();
+        }    
     }
 }
 

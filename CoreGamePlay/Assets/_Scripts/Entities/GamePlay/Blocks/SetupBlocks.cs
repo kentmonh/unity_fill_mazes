@@ -8,13 +8,16 @@ using _Scripts.Entities.Helper;
 namespace _Scripts.Entities.GamePlay.Blocks
 {
     public class SetupBlocks : MonoBehaviour
+
     {
         [SerializeField] private GameObject _blockObject;
 
         public static Block[] Blocks { get; set; }
         public static Vector3 Center { get; set; }
 
-        void Start()
+        private static List<GameObject> instantiateBlocks = new List<GameObject>();
+
+        public void Start()
         {
             GetCurrentLevel currentLevel = new GetCurrentLevel();
 
@@ -23,6 +26,7 @@ namespace _Scripts.Entities.GamePlay.Blocks
             foreach (Vector3 position in currentLevel.BlocksPath)
             {
                 var block = Instantiate(_blockObject, position - Center, Quaternion.identity);
+                instantiateBlocks.Add(block);
                 block.transform.SetParent(this.gameObject.transform);
             }
             _blockObject.SetActive(false);
@@ -32,6 +36,16 @@ namespace _Scripts.Entities.GamePlay.Blocks
             {
                 Blocks[i].Position = currentLevel.BlocksPath[i];
             }
+        }
+
+        public static void NewGame()
+        {
+            // Destroy old instantiate buttons
+            foreach (GameObject block in instantiateBlocks)
+            {
+                DestroyImmediate(block);
+            }
+            instantiateBlocks.Clear();
         }
     }
 }

@@ -32,12 +32,12 @@ namespace _Scripts.Entities.Menu
             {
                 case MenuButtonType.StageLevel:
                     PlayerPrefsManager.CurrentStage = btnLevel;
-                    TextStageLevelController.TextStageLevel.text = "Stage " + btnLevel.ToString();
+                    TextStageLevelController.TextStageLevel.text = "Stage " + PlayerPrefsManager.CurrentStage.ToString();
                     canvasManager.SwitchCanvas(CanvasType.MenuLevelSelect);
                     break;
                 case MenuButtonType.GameLevel:
                     PlayerPrefsManager.CurrentLevel = btnLevel;
-                    TextGameLevelController.TextGameLevel.text = PlayerPrefsManager.CurrentStage.ToString() + "-" + btnLevel.ToString();
+                    TextGameLevelController.RefreshGameLevelText();
                     canvasManager.SwitchCanvas(CanvasType.GamePlay);
                     break;
                 default:

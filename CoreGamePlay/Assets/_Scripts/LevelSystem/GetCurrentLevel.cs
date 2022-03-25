@@ -15,6 +15,7 @@ namespace _Scripts.LevelSystem
 
         public GetCurrentLevel()
         {
+            Debug.Log("GetCurrentLevel");
             BlocksPath = new List<Vector3>();
             Rows = new List<int>();
             Columns = new List<int>();
